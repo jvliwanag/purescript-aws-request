@@ -11,11 +11,9 @@ You can edit this file as you like.
     , "exceptions"
     , "foreign"
     , "foreign-object"
-    , "generics-rep"
     , "js-date"
     , "prelude"
     , "psci-support"
-    , "simple-json"
     ]
 , packages = ./packages.dhall
 , sources = [ "src/**/*.purs", "test/**/*.purs" ]

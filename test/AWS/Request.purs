@@ -8,7 +8,7 @@ import Data.Either (Either(..))
 import Effect.Aff (Aff, attempt, throwError)
 import Effect.Class (liftEffect)
 import Effect.Exception (Error, error, message)
-import Foreign (Foreign)
+import Foreign (Foreign, unsafeToForeign)
 
 main :: Aff Unit
 main = do
@@ -20,7 +20,7 @@ main = do
 testRequestUnknownMethod :: Aff Unit
 testRequestUnknownMethod = do
     s3 <- liftEffect $ service (ServiceName "S3") {}
-    errOrSuccess :: Either Error Foreign <- attempt $ request s3 (MethodName "unknown") {}
+    errOrSuccess :: Either Error Foreign <- attempt $ request s3 (MethodName "unknown") (unsafeToForeign {})
     case errOrSuccess of
         Right succ -> throwError $ error "AWS S3 method unknown shouldn't exist"
         Left err -> if (message err) == "service[methodName] is not a function"
@@ -30,7 +30,7 @@ testRequestUnknownMethod = do
 testRequestMissingParameters :: Aff Unit
 testRequestMissingParameters = do
     s3 <- liftEffect $ service (ServiceName "S3") $ { paramValidation: paramValidation true }
-    errOrSuccess :: Either Error Foreign <- attempt $ request s3 (MethodName "getBucketVersioning") {}
+    errOrSuccess :: Either Error Foreign <- attempt $ request s3 (MethodName "getBucketVersioning") (unsafeToForeign {})
     case errOrSuccess of
         Right succ -> throwError $ error "AWS S3 getBucketVersioning should require parameters"
         Left err -> if (message err) == "Missing required key 'Bucket' in params"
