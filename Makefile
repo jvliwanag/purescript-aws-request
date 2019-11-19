@@ -17,7 +17,7 @@ build:
 
 test:
 	spago test
-	spago docs --format markdown && rm -fr docs && mkdir docs && mv generated-docs/md/F.md generated-docs/md/AWS*.md docs/
+	spago docs --format markdown && rm -fr docs && mkdir docs && mv generated-docs/md/AWS*.md docs/
 	[ -z "$$(git status --porcelain)" ] || (echo "Generated content not commited" && exit 1)
 
 release:
