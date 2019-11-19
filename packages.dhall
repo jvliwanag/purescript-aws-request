@@ -123,6 +123,24 @@ let upstream =
 
 let overrides = {=}
 
-let additions = {=}
+let additions =
+  { oneof =
+    { dependencies =
+      [ "assert"
+      , "console"
+      , "effect"
+      , "foreign"
+      , "maybe"
+      , "proxy"
+      , "psci-support"
+      , "tuples"
+      , "unsafe-coerce"
+      ]
+    , repo =
+        "https://github.com/jvliwanag/purescript-oneof.git"
+    , version =
+        "d62e3bce378c54932ff5ed7795d46853a8772fad"
+    }
+  }
 
 in  upstream // overrides // additions

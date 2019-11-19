@@ -12,6 +12,7 @@ You can edit this file as you like.
     , "foreign"
     , "foreign-object"
     , "js-date"
+    , "oneof"
     , "prelude"
     , "psci-support"
     ]

@@ -1,11 +1,11 @@
 module Test.AWS.Service where
 
-import Prelude (Unit, bind, pure, unit, ($), (==))
+import Prelude
+
+import AWS.Service (ServiceName(..), httpOptions, service)
 import Data.Either (Either(..))
 import Effect (Effect)
 import Effect.Exception (message, throw, throwException, try)
-
-import AWS.Service
 
 main :: Effect Unit
 main = do
@@ -24,7 +24,5 @@ testUnknownService = do
 
 testUpdateOptions :: Effect Unit
 testUpdateOptions = do
-    let newHttpOptions = httpOptions { proxy: "new-proxy" }
-    let newOptions = { httpOptions: newHttpOptions }
-    _ <- service (ServiceName "S3") newOptions
-    pure unit
+  _ <- service (ServiceName "S3") { httpOptions: httpOptions { proxy: "new-proxy" } }
+  pure unit
