@@ -1,4 +1,17 @@
-module AWS.Service where
+module AWS.Service
+       ( Options
+       , ParamValidation
+       , paramValidation
+       , RetryDelayOptions
+       , retryDelayOptions
+       , HttpOptions
+       , httpOptions
+       , ApiVersion
+       , apiVersion
+       , Service(..)
+       , ServiceName(..)
+       , service
+       ) where
 
 import Prelude
 

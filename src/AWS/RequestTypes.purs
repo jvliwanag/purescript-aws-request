@@ -1,4 +1,6 @@
-module AWS.Request.Types where
+module AWS.Request.Types
+       ( Timestamp(..)
+       ) where
 
 import Prelude
 

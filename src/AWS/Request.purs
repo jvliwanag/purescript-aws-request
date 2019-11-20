@@ -1,6 +1,7 @@
-module AWS.Request ( MethodName(..)
-                   , request
-                   ) where
+module AWS.Request
+       ( MethodName(..)
+       , request
+       ) where
 
 import Prelude
 
