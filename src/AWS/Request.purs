@@ -1,5 +1,5 @@
 module AWS.Request
-       ( MethodName(..)
+       ( MethodName
        , request
        ) where
 
@@ -10,10 +10,10 @@ import Effect.Aff (Aff)
 import Effect.Aff.Compat (EffectFnAff, fromEffectFnAff)
 import Foreign (Foreign)
 
-newtype MethodName = MethodName String
+type MethodName = String
 
-foreign import requestImpl :: Service -> String -> Foreign -> EffectFnAff Foreign
+foreign import requestImpl :: Service -> MethodName -> Foreign -> EffectFnAff Foreign
 
 request :: Service -> MethodName -> Foreign -> Aff Foreign
-request service (MethodName method) i =
-  requestImpl service method i # fromEffectFnAff
+request service methodName i =
+  requestImpl service methodName i # fromEffectFnAff

@@ -9,13 +9,12 @@ module AWS.Service
        , ApiVersion
        , apiVersion
        , Service
-       , ServiceName(..)
+       , ServiceName
        , service
        ) where
 
 import Data.JSDate (JSDate)
 import Effect (Effect)
-import Foreign (Foreign)
 import Foreign.Object (Object)
 import Runtime.Coercible (class Coercible, coerce)
 import Runtime.OneOf (type (|+|))
@@ -120,10 +119,9 @@ apiVersion :: forall a. Coercible a ApiVersion => a -> ApiVersion
 apiVersion = coerce
 
 foreign import data Service :: Type
-newtype ServiceName = ServiceName String
+type ServiceName = String
 
-foreign import serviceImpl :: String -> Foreign -> Effect Service
+foreign import serviceImpl :: String -> Options -> Effect Service
 
 service :: forall r. Coercible r Options => ServiceName -> r -> Effect Service
-service (ServiceName sName) r =
-  serviceImpl sName (coerce r)
+service serviceName r = serviceImpl serviceName (coerce r)

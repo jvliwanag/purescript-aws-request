@@ -2,7 +2,7 @@ module Test.AWS.Service where
 
 import Prelude
 
-import AWS.Service (ServiceName(..), httpOptions, service)
+import AWS.Service (httpOptions, service)
 import Data.Either (Either(..))
 import Effect (Effect)
 import Effect.Exception (message, throw, throwException, try)
@@ -15,7 +15,7 @@ main = do
 
 testUnknownService :: Effect Unit
 testUnknownService = do
-    errOrSuccess <- try $ service (ServiceName "unknown") {}
+    errOrSuccess <- try $ service "unknown" {}
     case errOrSuccess of
         Right succ -> throw "AWS service unknown shouldn't exist"
         Left err -> if (message err) == "awsSdk[serviceName] is not a constructor"
@@ -24,5 +24,5 @@ testUnknownService = do
 
 testUpdateOptions :: Effect Unit
 testUpdateOptions = do
-  _ <- service (ServiceName "S3") { httpOptions: httpOptions { proxy: "new-proxy" } }
+  _ <- service "S3" { httpOptions: httpOptions { proxy: "new-proxy" } }
   pure unit
