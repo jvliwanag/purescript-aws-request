@@ -8,12 +8,10 @@ module AWS.Service
        , httpOptions
        , ApiVersion
        , apiVersion
-       , Service(..)
+       , Service
        , ServiceName(..)
        , service
        ) where
-
-import Prelude
 
 import Data.JSDate (JSDate)
 import Effect (Effect)
@@ -121,11 +119,11 @@ type ApiVersion = String |+| JSDate
 apiVersion :: forall a. Coercible a ApiVersion => a -> ApiVersion
 apiVersion = coerce
 
-newtype Service = Service Foreign
+foreign import data Service :: Type
 newtype ServiceName = ServiceName String
 
-foreign import serviceImpl :: String -> Foreign -> Effect Foreign
+foreign import serviceImpl :: String -> Foreign -> Effect Service
 
 service :: forall r. Coercible r Options => ServiceName -> r -> Effect Service
 service (ServiceName sName) r =
-  Service <$> serviceImpl sName (coerce r)
+  serviceImpl sName (coerce r)
